@@ -12,6 +12,7 @@ decide. The levels get harder, so the scoreboard shows how far up the ladder a l
 | 01 | Snake game | Python game logic + browser (HTML canvas) front end | ready (6 tasks, 17 visible + 55 hidden tests) |
 | 02 | Second arcade-style game (more state, collisions) | tbd | planned |
 | 03 | Portfolio site | tbd | planned |
+| 03b | Database design: schema from a spec (constraints, migrations, queries, indexes) | SQLite | planned (2026-11-07) |
 | 04 | API + database | FastAPI + SQLite, then Postgres | planned |
 | 05 | AI app (chatbot / RAG) | uses OpenRouter or NVIDIA APIs at runtime | planned |
 | 06 | Small full system (front end + API + DB + AI) | tbd | planned |
