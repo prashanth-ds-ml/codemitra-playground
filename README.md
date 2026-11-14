@@ -1,7 +1,7 @@
-# mitra-playground
+# codemitra-playground
 
-Practice projects for [Mitra](https://github.com/prashanth-ds-ml/mitra), a local coding assistant built for small
-models. Each level is a small project with a plan and tests. Mitra (on local models only) tries to build it; the tests
+Practice projects for [CodeMitra](https://github.com/prashanth-ds-ml/codemitra), a local coding assistant built for small
+models. Each level is a small project with a plan and tests. CodeMitra (on local models only) tries to build it; the tests
 decide. The levels get harder, so the scoreboard shows how far up the ladder a local model can climb.
 
 > **Building in public.** Levels are added one at a time.
@@ -23,7 +23,7 @@ Filled in as runs happen. A level counts as passed only when the hidden tests pa
 
 | Level | Builder | Model | Visible tests | Hidden tests | Date |
 |---|---|---|---|---|---|
-| 01 | Mitra (core loop, plan task by task) | qwen3.5:4b, 128K | 17/17 | 54/55 (not passed: new food can land on the new head) | 2026-11-06 |
+| 01 | CodeMitra (core loop, plan task by task) | qwen3.5:4b, 128K | 17/17 | 54/55 (not passed: new food can land on the new head) | 2026-11-06 |
 
 ## How a level is laid out
 ```
@@ -48,14 +48,14 @@ every push.
 
 ## API keys (levels 05-06 only)
 The apps in levels 05-06 call OpenRouter or NVIDIA models for their own AI features. Copy `.env.example` to `.env` and
-fill in your keys. `.env` is never committed. Mitra itself only uses local models.
+fill in your keys. `.env` is never committed. CodeMitra itself only uses local models.
 
 ## Licence
 MIT
 
 ## Run a builder on a level
 ```
-python scripts/run_level.py levels/01-snake --builder mitra --model qwen3.5:4b
+python scripts/run_level.py levels/01-snake --builder codemitra --model qwen3.5:4b
 ```
-Builds a fresh workspace (start files, visible tests, plan), runs Mitra on the plan one task at a time, then adds the
+Builds a fresh workspace (start files, visible tests, plan), runs CodeMitra on the plan one task at a time, then adds the
 hidden tests and records the result in `results/<level>/`.

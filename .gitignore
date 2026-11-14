@@ -10,5 +10,6 @@ node_modules/
 logs/
 *.log
 
-# Mitra session files (memory, plans, logs, history): local only
+# CodeMitra session files (memory, plans, logs, history): local only (.mitra = its name before v0.8.0)
+.codemitra/
 .mitra/

@@ -1,6 +1,6 @@
 # Plan format (v0)
 
-One Markdown file per feature. Mitra writes it with `/plan` (local model) or a person writes it by hand; `mitra run`
+One Markdown file per feature. CodeMitra writes it with `/plan` (local model) or a person writes it by hand; `codemitra run`
 works through the tasks in order. The same format is used in every level's `plan.md`. Kept small on purpose: a 4-9B
 model has to read it and write it.
 
@@ -30,4 +30,4 @@ model has to read it and write it.
 - **Needs** lists only earlier tasks. If a task fails, the tasks that need it are skipped.
 - Design notes hold the facts every task shares (names, data shapes), so a task never has to guess them.
 
-Version history: v0 2026-11-05 (first draft; Mitra M3 may refine it).
+Version history: v0 2026-11-05 (first draft; CodeMitra M3 may refine it).

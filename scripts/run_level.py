@@ -1,9 +1,9 @@
 """Run a builder on a level, then judge it with the hidden tests.
 
-    python scripts/run_level.py levels/01-snake --builder mitra --model qwen3.5:4b
+    python scripts/run_level.py levels/01-snake --builder codemitra --model qwen3.5:4b
 
 1. A fresh workspace gets start/, tests/visible/ (as tests/) and plan.md. Never reference/ or tests/hidden/.
-2. The builder runs in that workspace (Mitra: `mitra solve --plan plan.md`, from ../05-mitra).
+2. The builder runs in that workspace (CodeMitra: `codemitra solve --plan plan.md`, from ../05-codemitra).
 3. Only after the builder exits are the hidden tests copied in; the level's test command decides pass/fail.
 4. A JSON result goes to results/<level>/<date>-<builder>-<model>.json; the workspace is kept for review.
 """
@@ -20,7 +20,9 @@ import tomllib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-MITRA = ROOT.parent / "05-mitra"
+# D-080 (2026-11-14): Mitra is CodeMitra; its folder is 05-codemitra (05-mitra before the rename)
+CODEMITRA = next((p for p in (ROOT.parent / "05-codemitra", ROOT.parent / "05-mitra") if p.is_dir()),
+                 ROOT.parent / "05-codemitra")
 
 
 def build_workspace(level: Path, dest: Path) -> None:
@@ -47,7 +49,7 @@ def test_counts(output: str) -> dict:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("level")
-    ap.add_argument("--builder", default="mitra", choices=["mitra"])
+    ap.add_argument("--builder", default="codemitra", choices=["codemitra"])
     ap.add_argument("--model", default="qwen3.5:4b")
     ap.add_argument("--max-steps", type=int, default=30)
     ap.add_argument("--timeout", type=int, default=3600)
@@ -62,7 +64,7 @@ def main() -> int:
     t0 = time.monotonic()
     cmd = [sys.executable, "-m", "app.main", "solve", "--plan", str(ws / "plan.md"), "--test", meta["test_command"],
            "-w", str(ws), "--model", args.model, "--max-steps", str(args.max_steps)]
-    code, out = run(cmd, MITRA, args.timeout)
+    code, out = run(cmd, CODEMITRA, args.timeout)
     build_seconds = time.monotonic() - t0
     print(out[-6000:])
 
@@ -79,9 +81,9 @@ def main() -> int:
     out_dir = ROOT / "results" / meta["id"]
     out_dir.mkdir(parents=True, exist_ok=True)
     out_file = out_dir / f"{time.strftime('%Y%m%d-%H%M')}-{args.builder}-{args.model.replace(':', '-')}.json"
-    runs = ws / ".mitra" / "runs"
-    if runs.is_dir():  # keep the run records (scrubbed) for `mitra report` and the dashboard
-        keep = ROOT / ".mitra" / "runs" / f"level-{meta['id']}-{out_file.stem}"
+    runs = ws / ".codemitra" / "runs"
+    if runs.is_dir():  # keep the run records (scrubbed) for `codemitra report` and the dashboard
+        keep = ROOT / ".codemitra" / "runs" / f"level-{meta['id']}-{out_file.stem}"
         shutil.copytree(runs, keep, dirs_exist_ok=True)
         result["records"] = str(keep.relative_to(ROOT))
     out_file.write_text(json.dumps(result, indent=2), encoding="utf-8")
